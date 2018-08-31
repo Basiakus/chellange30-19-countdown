@@ -2,6 +2,7 @@ let countdown;
 const displayTimeLeft = document.querySelector('.display__time-left'); 
 const displayTimeToEnd = document.querySelector('.display__end-time');
 const buttons = document.querySelectorAll('[data-time]');
+const form = document.querySelector('#custom');
 
 function timer(sec) {
 	clearInterval(countdown);
@@ -39,4 +40,11 @@ function choiceTime() {
 	const choice = parseInt(this.dataset.time);
 	timer(choice);
 }
+function customValue(e) {
+	e.preventDefault();
+	const customValue = form.minutes.value;
+	(!isNaN( customValue )) ? timer(customValue) : displayTimeToEnd.textContent = 'Please Write The Number';
+	form.reset();
+}
 buttons.forEach( button => button.addEventListener('click', choiceTime));
+form.addEventListener('submit', customValue);
